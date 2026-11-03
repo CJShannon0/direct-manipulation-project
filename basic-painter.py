@@ -35,11 +35,45 @@ def clearCanvas():
 def clearPopup():
     global clearAlert
     clearAlert = tk.Toplevel(root)
-    clearAlert.geometry("300x200")
+    clearAlert.title("Clear canvas")
+    clearAlert.geometry("360x160")
+    clearAlert.resizable(False, False)
     clearAlert.attributes('-topmost', True)
-    tk.Label(clearAlert, text="Are you sure you want to clear the canvas?").grid(row=0, columnspan=2)
-    tk.Button(clearAlert, text="Cancel", command=clearAlert.destroy).grid(row=1, column=0)
-    tk.Button(clearAlert, text="Clear", command=clearCanvas).grid(row=1, column=1)
+    clearAlert.configure(bg="#f4f5f6")
+
+    popupContent = tk.Frame(clearAlert, bg="#f4f5f6", padx=24, pady=20)
+    popupContent.pack(fill="both", expand=True)
+
+    tk.Label(
+        popupContent,
+        text="Are you sure you want to clear the canvas?",
+        bg="#f4f5f6",
+        fg="#202124",
+        font=("Segoe UI", 11),
+    ).pack(anchor="w", pady=(0, 20))
+
+    popupActions = tk.Frame(popupContent, bg="#f4f5f6")
+    popupActions.pack(anchor="center")
+    buttonStyle = {
+        "relief": "flat",
+        "bg": "#ffffff",
+        "fg": "#202124",
+        "activebackground": "#e9ebed",
+        "padx": 12,
+        "pady": 8,
+    }
+    tk.Button(
+        popupActions,
+        text="Cancel",
+        command=clearAlert.destroy,
+        **buttonStyle,
+    ).pack(side="left", padx=(0, 8))
+    tk.Button(
+        popupActions,
+        text="Clear",
+        command=clearCanvas,
+        **buttonStyle,
+    ).pack(side="left")
 
 # Widgets
 header = tk.Frame(root, bg="#f4f5f6", padx=24, pady=18)
